@@ -1,8 +1,7 @@
 package org.launchcode.codingevents.models;
 
-import javax.validation.constraints.Email;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.Size;
+import javax.validation.constraints.*;
+import java.util.Date;
 import java.util.Objects;
 
 /**
@@ -24,11 +23,32 @@ public class Event {
     @Email(message = "Invalid email. Try again.")
     private String contactEmail;
 
-    public Event(String name, String description, String contactEmail) {
+    @NotNull (message = "Location is required")
+    @NotBlank (message = "Location is required")
+    private String location;
+
+
+    @AssertTrue(message = "Registration Needed must be marked as true")
+    private boolean registrationNeeded;
+
+
+    @Min(1)
+    private Integer attendeeCount;
+
+
+    @Future(message = "This event must take place on a future date")
+    private Date date;
+
+    public Event(String name, String description, String contactEmail,
+                 String location, boolean registrationNeeded, Integer attendeeCount, Date date) {
         this();
         this.name = name;
         this.description = description;
         this.contactEmail = contactEmail;
+        this.location = location;
+        this.registrationNeeded = registrationNeeded;
+        this.attendeeCount = attendeeCount;
+        this.date = date;
     }
 
     public Event() {
@@ -58,6 +78,38 @@ public class Event {
 
     public void setContactEmail(String contactEmail) {
         this.contactEmail = contactEmail;
+    }
+
+    public String getLocation() {
+        return location;
+    }
+
+    public void setLocation(String location) {
+        this.location = location;
+    }
+
+    public boolean isRegistrationNeeded() {
+        return registrationNeeded;
+    }
+
+    public void setRegistrationNeeded(boolean registrationNeeded) {
+        this.registrationNeeded = registrationNeeded;
+    }
+
+    public Integer getAttendeeCount() {
+        return attendeeCount;
+    }
+
+    public void setAttendeeCount(Integer attendeeCount) {
+        this.attendeeCount = attendeeCount;
+    }
+
+    public Date getDate() {
+        return date;
+    }
+
+    public void setDate(Date date) {
+        this.date = date;
     }
 
     public int getId() {
